@@ -40,7 +40,7 @@ function showInfosFromDb(response){
         $('#detailsElement_remaining_amount').attr('data-value',response['remainingAmount']['remainingAmount']);
     }
     else {
-        $('#detailsElement_remaining_amount').html(formatMoneyAmount(response['details']['initial_amount'],2,',',' '));
+        $('#detailsElement_remaining_amount').html(formatMoneyAmount(response['details']['initial_amount'],2,',',' ')+' €');
         $('#detailsElement_remaining_amount').attr('data-value',response['details']['initial_amount']);
     }
 }

@@ -66,7 +66,7 @@ function getRemainingAmount(response){
    
     var remainingAmount = parseFloat(response['remainingAmount']['remainingAmount']);
 
-    $('#detailsElement_remaining_amount').html(formatMoneyAmount(remainingAmount,2,',',' '));
+    $('#detailsElement_remaining_amount').html(formatMoneyAmount(remainingAmount,2,',',' ')+' €');
     $('#detailsElement_remaining_amount').attr('data-value',remainingAmount);
 ;
     addRemainingamountInAjax(remainingAmount);
