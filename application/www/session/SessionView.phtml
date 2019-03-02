@@ -1,0 +1,265 @@
+<div class="container">
+
+    <div id="add">
+        <!-----------------ADD DEBT--------------------->
+        <div id="addDebt" class="hidden">
+            <form action="<?=$requestUrl?>/debts/addDebts" method="POST" class="form">
+                <fieldset class="border">
+                    <legend>Ajouter une dette</legend>
+                    <ul class="list">
+                        <li>
+                            <input id="creancier" type="text" name="name" placeholder="Nom du créancier" required>
+                            <span id="missNameDebt"></span>
+                        </li>
+                        <li>
+                            <label for="deadline_date_debt">Date d'échéance :</label>
+                            <select id="deadline_date_day_debt" name="deadline_date_day_debt">
+                                <?php for ($i=1 ; $i<=31 ; $i++) { ?>
+                                    <option value="<?=$i?>"><?=$i?></option>
+                                <?php } ?>
+                            </select> / 
+                            <select id="deadline_date_month_debt" name="deadline_date_month_debt">
+                                    <option value="1">Janvier</option>
+                                    <option value="2">Février</option>
+                                    <option value="3">Mars</option>
+                                    <option value="4">Avril</option>
+                                    <option value="5">Mai</option>
+                                    <option value="6">Juin</option>
+                                    <option value="7">Juillet</option>
+                                    <option value="8">Août</option>
+                                    <option value="9">Septembre</option>
+                                    <option value="10">Octobre</option>
+                                    <option value="11">Novembre</option>
+                                    <option value="12">Décembre</option>
+                            </select> / 
+                            <select id="deadline_date_year_debt" name="deadline_date_year_debt">
+                                <?php for ($i=date('Y') ; $i<=date('Y')+20 ; $i++) { ?>
+                                    <option value="<?=$i?>"><?=$i?></option>
+                                <?php } ?>
+                            </select>
+                        </li>
+                        <li>
+                            <input id="amount_debt" type="number" step="0.01" min="0" name="amount_debt" placeholder="Montant" required>
+                            <span id="missAmountDebt"></span>
+                        </li>
+                        <li class="buttons">
+                            <button id="buttonValidateAddDebt" type="submit">Enregistrer</button>
+                            <button id="buttonCancelAddDebt" type="button">Annuler</button>
+                        </li>
+                    </ul>
+                </fieldset>
+            </form>
+        </div>
+
+        <!-----------------ADD CREANCE--------------------->
+        <div id="addCreance" class="hidden">
+            <form action="<?=$requestUrl?>/creances/addCreance" method="POST" class="form">
+                <fieldset class="border">
+                    <legend>Ajouter une créance</legend>
+                    <ul class="list">
+                        <li>
+                            <input id="debiteur" type="text" name="name" placeholder="Nom du débiteur" required>
+                            <span id="missNameCreance"></span>
+                        </li>
+                        <li>
+                            <label for="deadline_date_creance">Date d'échéance :</label>
+                            <select id="deadline_date_day_creance" name="deadline_date_day_creance">
+                                <?php for ($i=1 ; $i<=31 ; $i++) { ?>
+                                    <option value="<?=$i?>"><?=$i?></option>
+                                <?php } ?>
+                            </select> / 
+                            <select id="deadline_date_month_creance" name="deadline_date_month_creance">
+                                    <option value="1">Janvier</option>
+                                    <option value="2">Février</option>
+                                    <option value="3">Mars</option>
+                                    <option value="4">Avril</option>
+                                    <option value="5">Mai</option>
+                                    <option value="6">Juin</option>
+                                    <option value="7">Juillet</option>
+                                    <option value="8">Août</option>
+                                    <option value="9">Septembre</option>
+                                    <option value="10">Octobre</option>
+                                    <option value="11">Novembre</option>
+                                    <option value="12">Décembre</option>
+                            </select> / 
+                            <select id="deadline_date_year_creance" name="deadline_date_year_creance">
+                                <?php for ($i=date('Y') ; $i<=date('Y')+20 ; $i++) { ?>
+                                    <option value="<?=$i?>"><?=$i?></option>
+                                <?php } ?>
+                            </select>
+                        </li>
+                        <li>
+                            <input id="amount_creance" type="number" step="0.01" min="0" name="amount_creance" placeholder="Montant" required>
+                            <span id="missAmountCreance"></span>
+                        </li>
+                        <li class="buttons">
+                            <button id="buttonValidateAddCreance" type="submit">Enregistrer</button>
+                            <button id="buttonCancelAddCreance" type="button">Annuler</button>
+                        </li>
+                    </ul>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div id="elements">
+            
+        <div class="grid2" id="showBoth">  
+            <!-----------------SHOW DEBTS--------------------->                  
+            <div id="showDebts">
+                <table class="table border colored_row">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Je dois</th>
+                            <th class="center" id="showFormAddDebt" clicked="false"><small>Ajouter une dette</small><i class="fas fa-plus-circle"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <?php foreach ($infosDebts['infosDebts'] as $infosdebt) { ?>
+                            <tr>
+                                <td class="nameColumn"><span class="infoName"><?=htmlspecialchars($infosdebt['name'])?></span><br><small class="infosDates">Création: <?=substr($infosdebt['creation_date'],8,2)?>-<?=substr($infosdebt['creation_date'],5,2)?>-<?=substr($infosdebt['creation_date'],0,4)?><br>Echéance : <?=substr($infosdebt['deadline_date'],8,2)?>-<?=substr($infosdebt['deadline_date'],5,2)?>-<?=substr($infosdebt['deadline_date'],0,4)?></small></td>
+                                <td class="midColumn center"><span class="remaining_amount" value="<?=$infosdebt['remaining_amount']?>" data-type="debts" data-id="<?=$infosdebt['id']?>"><?=number_format($infosdebt['remaining_amount'],2,',',' ')?></span> €</td>
+                                <td class="midColumn right"><div class="buttonShowDetailsDebt" clicked="false" data-id="<?=$infosdebt['id']?>">Détails<i class="fas fa-chevron-right"></i></div></td>
+                            </tr>
+                        <?php } ?>
+    
+                        <?php if (empty($infosDebts['infosDebts'])){ ?> 
+                            <tr class="dataEmpty">
+                                <td colspan="3">Vous n'avez pas encore ajouté de dette.</td>
+                            </tr>
+                        <?php } ?>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                        <?php if (isset($infosdebt)) { ?>
+                            <td >Total</td>
+                            <td colspan="2" class="width50 right"><span id="total_amount_debts" value="<?=$infosDebts['total']['total']?>" data-type="debts" data-id="<?=$infosdebt['id']?>"><?=number_format($infosDebts['total']['total'],2,',',' ')?></span> €</td>
+                        <?php } ?>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-----------------SHOW CREANCES--------------------->
+            <div id="showCreances">
+                <table class="table border colored_row">
+                    <thead>
+                        <tr>
+                            <th colspan="2">On me doit</th>
+                            <th class="center" id="showFormAddCreance" clicked="false"><small>Ajouter une créance</small><i class="fas fa-plus-circle"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (isset($infosCreances)) { ?>
+                            <?php foreach ($infosCreances['infosCreances'] as $infoscreance) { ?>
+                                <tr>
+                                    <td class="nameColumn"><span class="infoName"><?=htmlspecialchars($infoscreance['name'])?></span><br><small class="infosDates">Création: <?=substr($infoscreance['creation_date'],8,2)?>-<?=substr($infoscreance['creation_date'],5,2)?>-<?=substr($infoscreance['creation_date'],0,4)?><br>Echéance : <?=substr($infoscreance['deadline_date'],8,2)?>-<?=substr($infoscreance['deadline_date'],5,2)?>-<?=substr($infoscreance['deadline_date'],0,4)?></small></td>
+                                    <td class="midColumn center"><span class="remaining_amount" value="<?=$infoscreance['remaining_amount']?>" data-type="creances" data-id="<?=$infoscreance['id']?>"><?=number_format($infoscreance['remaining_amount'],2,',',' ')?></span> €</td>
+                                    <td class="midColumn right"><div class="buttonShowDetailsCreance" clicked="false" data-id="<?=$infoscreance['id']?>">Details<i class="fas fa-chevron-right"></i></div></td>
+                                </tr>
+                            <?php } }?>
+
+                        <?php if (empty($infosCreances['infosCreances'])){ ?> 
+                            <tr class="dataEmpty">
+                                <td colspan="3">Vous n'avez pas encore ajouté de créance.</td>
+                            </tr>
+                        <?php } ?>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                        <?php if (isset($infoscreance)) { ?>
+                            <td>Total</td>
+                            <td colspan="2" class="width50 right"><span id="total_amount_creances" value="<?=$infosCreances['total']['total']?>" data-type="creances" data-id="<?=$infoscreance['id']?>"><?=number_format($infosCreances['total']['total'],2,',',' ')?></span> €</td>
+                        <?php } ?>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-----------------DETAILS DE L'ELEMENT------------------>
+        <div id="detailsElement" data-type="" data-id="" class="hidden">
+                <table class="table border">
+                    <thead>
+                        <tr>
+                            <th id="detailsElement_title"></th>
+                            <th class="right"><div id="buttonDelete"><i class="fas fa-trash-alt"></i></div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="detailsElement_thirdParty"></td>
+                            <td class="center" id="detailsElement_name"></td>
+                        </tr>
+                        <tr>
+                            <td>Date de création :</td>
+                            <td class="right" id='detailsElement_creation_date'></td>
+                        </tr>
+                        <tr>
+                            <td>Date d'échéance :</td>
+                            <td class="right" id='detailsElement_deadline_date'></td>
+                        </tr>
+                        <tr>
+                            <td>Montant initial :</td>
+                            <td class="right" id="detailsElement_initial_amount"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" id="buttonAddReimbursement">Ajouter un remboursement<i class="fas fa-plus-circle"></i></td>
+                        </tr>
+
+                    <!-------AFFICHE SI UN REMBOURSEMENT EXISTE---------->
+
+                        <tr id="detailsElement_formReimbursement" class="hidden">
+                            <form>
+                                <td class="form">
+                                    <input id="valueReimbursement" type="number" step="0.01" min="0" placeholder="Remboursement">
+                                </td>
+                                <td class="buttons">
+                                    <button id="validateAddReimbursement" type="submit" >Enregistrer</button>
+                                </td>
+                            </form>
+                        </tr> 
+                                        
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Montant restant :</td>
+                            <td class="right" id="detailsElement_remaining_amount" data-value=""><span> €</span></td>
+                        </tr>
+                    </tfoot>
+                </table>
+        </div>
+
+        <!-----------------CHART------------------------------->
+        <div class="grid2" id="chart">
+            
+            <canvas id="myChart" width="200" height="200"></canvas>
+
+        </div>
+
+
+    </div>
+</div>
+
+<div id="confirmDelete" class="hidden border">
+    <p>Etes-vous sûr de vouloir supprimer ?</p>
+    <div class="buttons">
+        <button id="validateDelete">Ok</button>
+        <button id="cancelDelete" type="button">Annuler</button>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+<script src="<?= $wwwUrl ?>/js/myChart.js"></script>
+
+<script src="<?= $wwwUrl ?>/js/verifForm.js"></script>
+<script src="<?= $wwwUrl ?>/js/delete.js"></script>
+<script src="<?= $wwwUrl ?>/js/detailsDebts&Creances.js"></script>
+<script src="<?= $wwwUrl ?>/js/reimbursement&remainingAmount.js"></script>
+<script src="<?= $wwwUrl ?>/js/designSession.js"></script>
+
+
+
+

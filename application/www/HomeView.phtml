@@ -1,0 +1,52 @@
+<div class="container">
+    <section id="sectionVocabulary">
+        <h1>Créez un compte et gérer facilement vos dettes et créances</h1>
+        <h2>Point de vocabulaire</h2>
+        <p>Une dette est une somme due par un débiteur à son créancier</p>
+        <p>Si je dois une somme d'argent, je suis un débiteur.</p>
+        <p>Si l'on me doit une somme d'argent, je suis un créancier.</p>
+    </section>
+
+    <!--------------FORMULAIRE DE LOGIN----------------->
+
+    <section class="hidden" id="sectionLogin">
+        <form action="<?=$requestUrl?>" method="POST" class="form form_login">
+            <fieldset class="border">
+                <legend>Se connecter</legend>
+                <ul class="list">
+                    <li>
+                        <input type="email" name="mail" id="mail" value="" placeholder="Votre mail" required>
+                        <span id="missMail"></span>
+                    </li>
+                    <li>
+                        <input type="password" name="password" id="password" placeholder="Votre mot de passe" required>
+                        <span id="missPassword"></span>
+                    </li>
+                    <li class="buttons"> 
+                        <button id="buttonValidateLogin" type="submit">Valider</button>
+                        <button id="buttonCancelLogin" type="button">Annuler</button>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+    </section>
+
+    <?php if (isset($info['infoUser']) && $info['infoUser'] == false){ ?>
+        <p style='color:red;'>Votre mail est incorrect</p>
+    <?php } 
+        else if (isset($info['validPassword']) && $info['validPassword'] == false){ ?>
+        <p style='color:red;'>Votre mot de passe est incorrect</p>
+    <?php } ?>
+
+    <div id="buttonsPageIndex">
+        <div>
+            <a href="#" id="loginButton" class="buttonIndex link"><i class="fas fa-sign-in-alt fa-3x"></i><p>Se connecter</p></a>
+        </div>
+        <div>
+            <a href="<?=$requestUrl?>/register" id="registerButton" class="buttonIndex link"><i class="fas fa-user-plus fa-3x"></i><p>S'inscrire</p></a>
+        </div>
+    </div>
+    
+</div>
+
+<script src="<?= $wwwUrl ?>/js/home.js"></script>

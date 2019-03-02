@@ -1,0 +1,34 @@
+<div class="container">
+    <form action="<?= $requestUrl?>/register" method="POST" class="form">
+        <fieldset class="border">
+            <legend>Inscription</legend>
+            <ul class="list">
+                <li class="hidden"> <!--système de sélection d'avatar à mettre en place -->
+                    <input id="avatar" type="text" name="avatar" >
+                </li>
+                <li>
+                    <input id="pseudo" type="text" name="pseudo" placeholder="Votre pseudo" required>
+                    <span id="missPseudo"></span>
+                </li>
+                <li>
+                    <input id="mail" type="email" name="mail" placeholder="Votre mail" required>
+                    <span id="missMail"></span>
+                </li>
+                <li>
+                    <input id="password" type="password" name="password" placeholder="Votre mot de passe" required>
+                    <span id="missPassword"></span>
+                </li>
+                <li class="buttons">
+                    <button id="buttonValidateRegister" type="submit">Valider</button>
+                    <button id="buttonCancelRegister" type="button">Annuler</button>
+                </li>
+            </ul>
+        </fieldset>
+    </form>
+    <div class="border hidden" id="congratulations">
+        <p><i class="fas fa-thumbs-up"></i> Félicitations, vous venez de créer un compte.<br>
+        Dans quelques secondes, vous serez redirigés vers votre page d'accueil.</p>
+    </div>
+</div>
+
+<script src="<?= $wwwUrl ?>/js/register.js"></script>
