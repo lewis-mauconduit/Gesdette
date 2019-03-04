@@ -33,7 +33,7 @@
     <nav class="container">
         <?php if (empty($_SESSION) == false) { ?>
             <span id="welcome">Bienvenue <?= htmlspecialchars($_SESSION['pseudo']) ?></span>
-            <button id="decoButton"><a class="link" href="<?=$requestUrl?>/logout">Deconnexion</a></button>
+            <a href="<?=$requestUrl?>/logout" class="link" id="decoButton">Deconnexion</a>
         <?php } ?>
     </nav>
     
@@ -46,7 +46,7 @@
 
 <!-- Pied de page commun -->
 <footer>
-    <p>Réalisé par Lewis MAUCONDUIT</p>
+    
 </footer>
 
 <!-- Code principal JavaScript de l'application -->

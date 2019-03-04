@@ -1,8 +1,8 @@
 <div class="container">
     <section id="sectionVocabulary">
         <h1>Créez un compte et gérer facilement vos dettes et créances</h1>
-        <h2>Point de vocabulaire</h2>
-        <p>Une dette est une somme due par un débiteur à son créancier</p>
+        <h2>Point vocabulaire</h2>
+        <p>Une dette est une somme due par un débiteur à son créancier.</p>
         <p>Si je dois une somme d'argent, je suis un débiteur.</p>
         <p>Si l'on me doit une somme d'argent, je suis un créancier.</p>
     </section>
@@ -32,10 +32,10 @@
     </section>
 
     <?php if (isset($info['infoUser']) && $info['infoUser'] == false){ ?>
-        <p style='color:red;'>Votre mail est incorrect</p>
+        <p class="center" style='color:red;'>Votre mail est incorrect.</p>
     <?php } 
         else if (isset($info['validPassword']) && $info['validPassword'] == false){ ?>
-        <p style='color:red;'>Votre mot de passe est incorrect</p>
+        <p class="center" style='color:red;'>Votre mot de passe est incorrect.</p>
     <?php } ?>
 
     <div id="buttonsPageIndex">

@@ -44,7 +44,7 @@
 }
 
 .midColumn {
-  width: 30%;
+  width: 29%;
 }
 
 .form {
@@ -61,7 +61,7 @@
   margin: 0 auto 15px auto;
   border: 1px grey solid;
   border-radius: 20px;
-  padding-left: 5px;
+  padding: 10px;
 }
 
 .form select {
@@ -117,7 +117,7 @@
 
 body {
   background-color: #c9eef7;
-  background-image: url("../images/background/finance1opa.png");
+  background-image: url("../images/background/financeopa40.png");
   color: #6d6c6c;
 }
 
@@ -170,10 +170,8 @@ nav #decoButton {
   border: 1px solid #611010;
   background-color: #611010;
   border-radius: 20px;
-}
-
-nav #decoButton a {
   color: white;
+  padding: 5px;
 }
 
 nav #decoButton:hover {

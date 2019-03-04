@@ -16,7 +16,7 @@ class UserModel{
                                 $hash
                             ]);
         
-        sleep(3); // attente pour affichage du message de félicitations
+        sleep(4); // attente pour affichage du message de félicitations
 
         $this -> logInUser($post);
            

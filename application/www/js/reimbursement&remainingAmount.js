@@ -8,7 +8,7 @@ $('#validateAddReimbursement').on('click',updateDbReimbursement);
 function showFormReimbursement(){
 
     //ne pas ajouter de remboursement si montant = 0
-    if (parseFloat($('#detailsElement_remaining_amount').html()) > 0){
+    if (parseFloat($('#detailsElement_remaining_amount').attr('data-value')) > 0){
         $('#detailsElement_formReimbursement').toggleClass('hidden');
     }
 }
@@ -17,38 +17,38 @@ function showFormReimbursement(){
 function updateDbReimbursement(event){
 
     event.preventDefault();
-                
+         
+if (isNaN(parseFloat($('#valueReimbursement').val())) == false){
+
     //condition si montant restant < remboursement saisi
 
     if (parseFloat($('#detailsElement_remaining_amount').attr('data-value')) <= parseFloat($('#valueReimbursement').val())) {
         var value = parseFloat($('#detailsElement_remaining_amount').attr('data-value'));
     }
     else{
+        var value = parseFloat($('#valueReimbursement').val());
+    }
 
-        if (isNaN(parseFloat($('#valueReimbursement').val())) == false){
+    var obj = {'value': value ,
+            'id': $('#detailsElement').attr('data-id'),
+            'type': $('#detailsElement').attr('data-type')
+            } 
 
-            var value = parseFloat($('#valueReimbursement').val());
+    $.ajax({
+        url: getRequestUrl()+"/session?target=reimbursement",
+        type: "POST",
+        data: obj,
+    })
+    .done(callBack_UpdateDb)
+    .fail(function (error){
+        console.log(error);
+    });
 
-            var obj = {'value': value ,
-                    'id': $('#detailsElement').attr('data-id'),
-                    'type': $('#detailsElement').attr('data-type')
-                    } 
+    $('#valueReimbursement').val('');
+    $('#detailsElement_formReimbursement').addClass('hidden');
 
-            $.ajax({
-                url: getRequestUrl()+"/session?target=reimbursement",
-                type: "POST",
-                data: obj,
-            })
-            .done(callBack_UpdateDb)
-            .fail(function (error){
-                console.log(error);
-            });
-
-            $('#valueReimbursement').val('');
-            $('#detailsElement_formReimbursement').addClass('hidden');
-
-            $.getJSON(getRequestUrl()+"/session?type="+obj['type']+"&id="+obj['id'], getRemainingAmount);//récupère le montant restant
-        }
+    $.getJSON(getRequestUrl()+"/session?type="+obj['type']+"&id="+obj['id'], getRemainingAmount);//récupère le montant restant
+        
     }
 }
 
@@ -72,7 +72,7 @@ function getRemainingAmount(response){
     addRemainingamountInAjax(remainingAmount);
 
     //proposer suppression si montant = 0
-    if (parseFloat($('#detailsElement_remaining_amount').html()) == 0){
+    if (parseFloat($('#detailsElement_remaining_amount').attr('data-value')) == 0){
         deleteElement();
     }
 
